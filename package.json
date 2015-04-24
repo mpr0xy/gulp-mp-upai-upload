@@ -1,0 +1,34 @@
+{
+  "name": "gulp-mp-upai-upload",
+  "version": "1.0.0",
+  "description": "用来把静态资源上传到upaiyun上加快访问速度",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mpr0xy/gulp-mp-upai-upload.git"
+  },
+  "keywords": [
+    "gulp",
+    "upai",
+    "upload"
+  ],
+  "author": "mpr0xy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mpr0xy/gulp-mp-upai-upload/issues"
+  },
+  "homepage": "https://github.com/mpr0xy/gulp-mp-upai-upload",
+  "dependencies": {
+    "MD5": "^1.2.1",
+    "async": "^0.9.0",
+    "gulp": "^3.8.11",
+    "gulp-util": "^3.0.4",
+    "mime": "^1.3.4",
+    "path": "^0.11.14",
+    "through2": "^0.6.5",
+    "upyun": "^1.1.3"
+  }
+}
