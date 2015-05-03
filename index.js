@@ -5,8 +5,7 @@ var gutil = require('gulp-util'),
   md5 = require('MD5'),
   UPYUN = require('upyun'),
   mime = require('mime'),
-  fs = require('fs'),
-  async = require('async');
+  fs = require('fs');
 
 module.exports = function(bucket, username, userpass, pathSplit) {
   var upyun = new UPYUN(bucket, username, userpass, 'v0', 'legacy');
@@ -21,17 +20,28 @@ module.exports = function(bucket, username, userpass, pathSplit) {
     }
     var remoteName = file.path.split(pathSplit)[1];
     remoteName = '/' + pathSplit + remoteName.replace(/\\/g, '/');
-    upyun.uploadFile(remoteName,
-      file.path,
-      mime.lookup(file.path),
-      true, function(err, result) {
-        if (err) {
-          console.error(err);
-          cb(err);
-        } else {
-          console.log("upload success¡¡" +¡¡remoteName);
-          cb();
-        }
-      });
+
+    upyun.existsFile(remoteName, function(err, result) {
+      if(err) {
+        throw err;
+      }
+      if (result.statusCode !== 200) {
+        upyun.uploadFile(remoteName,
+          file.path,
+          mime.lookup(file.path),
+          true, function(err, result) {
+            if (err) {
+              console.error(err);
+            } else {
+              console.log("upload success " + remoteName);
+            }
+          });
+      }
+
+    });
+
+
+    cb();
+
   });
 }
