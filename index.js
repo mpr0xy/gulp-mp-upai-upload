@@ -7,7 +7,7 @@ var gutil = require('gulp-util'),
   mime = require('mime'),
   fs = require('fs');
 
-module.exports = function(bucket, username, userpass, pathSplit) {
+module.exports = function(bucket, username, userpass, pathSplit, overWrite) {
   var upyun = new UPYUN(bucket, username, userpass, 'v0', 'legacy');
   return through.obj(function (file, enc, cb) {
     if (file.isNull()) {
@@ -25,7 +25,7 @@ module.exports = function(bucket, username, userpass, pathSplit) {
       if(err) {
         throw err;
       }
-      if (result.statusCode !== 200) {
+      if (overWrite || result.statusCode !== 200) {
         upyun.uploadFile(remoteName,
           file.path,
           mime.lookup(file.path),
@@ -33,7 +33,12 @@ module.exports = function(bucket, username, userpass, pathSplit) {
             if (err) {
               console.error(err);
             } else {
-              console.log("upload success " + remoteName);
+              if (result.statusCode === 200) {
+                console.log("upload success " + remoteName);
+              } else {
+                console.log(remoteName);
+                console.log(result);
+              }
             }
           });
       }
