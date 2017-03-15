@@ -30,6 +30,7 @@ module.exports = function(bucket, username, userpass, pathSplit, overWrite) {
           file.path,
           mime.lookup(file.path),
           true, function(err, result) {
+            cb();
             if (err) {
               console.error(err);
             } else {
@@ -41,12 +42,10 @@ module.exports = function(bucket, username, userpass, pathSplit, overWrite) {
               }
             }
           });
+      } else {
+        cb();
       }
 
     });
-
-
-    cb();
-
   });
 }
