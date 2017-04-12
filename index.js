@@ -30,22 +30,21 @@ module.exports = function(bucket, username, userpass, pathSplit, overWrite) {
           file.path,
           mime.lookup(file.path),
           true, function(err, result) {
-            cb();
             if (err) {
-              console.error(err);
+              throw err;
             } else {
               if (result.statusCode === 200) {
                 console.log("upload success " + remoteName);
+                cb();
               } else {
                 console.log(remoteName);
-                console.log(result);
+                throw result;
               }
             }
           });
       } else {
         cb();
       }
-
     });
   });
 }
