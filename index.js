@@ -9,7 +9,7 @@ var gutil = require('gulp-util'),
 
 module.exports = function(bucket, username, userpass, pathSplit, overWrite) {
   var upyun = new UPYUN(bucket, username, userpass, 'v0', 'legacy');
-  return through.obj(function (file, enc, cb) {
+  var stream = through.obj(function (file, enc, cb) {
     if (file.isNull()) {
       cb(null, file);
       return;
@@ -47,4 +47,8 @@ module.exports = function(bucket, username, userpass, pathSplit, overWrite) {
       }
     });
   });
+
+  // 这里调用一下这个函数，才能使用.on('end')监听到完成
+  stream.resume();
+  return stream;
 }

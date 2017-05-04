@@ -1,6 +1,6 @@
 {
   "name": "gulp-mp-upai-upload",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "用来把静态资源上传到upaiyun上加快访问速度",
   "main": "index.js",
   "scripts": {
