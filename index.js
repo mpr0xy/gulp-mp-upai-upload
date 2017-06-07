@@ -2,7 +2,6 @@
 var gutil = require('gulp-util'),
   through = require('through2'),
   path = require('path'),
-  md5 = require('MD5'),
   UPYUN = require('upyun'),
   mime = require('mime'),
   fs = require('fs');
